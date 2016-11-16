@@ -11,12 +11,31 @@
 namespace WPQuickPostDraft\Main;
 
 
+/**
+ * Add the selected gif to the meta
+ */
+add_filter('wpseo_twitter_image', __NAMESPACE__ .'\n8f_add_twitter_card_to_header');
+
+function n8f_add_twitter_card_to_header($img) {
+
+		// $img = get_field('gif_file_to_upload');
+
+		$img = 'http://gph.is/Kt7rMg';
+
+    return $img;
+
+}
+
+
+/**
+ * Add add the popup to the footer, will be hidden with jQuery UI
+ */
 add_action('wp_footer', __NAMESPACE__ . '\load_on_lesson');
 
 
-function is_page_a_lesson() {
-	return ( is_singular('sfwd-lessons') || is_singular( 'sfwd-topic' ) );
-}
+/**
+ * Determine if this is LearnDash content
+ */
 
 function n8f_is_learndash_course_content() {
 
@@ -40,12 +59,12 @@ function load_on_lesson() {
 		$gif_hashtags = get_field('gif_hashtags');
 		$tw_sharing_phrase = str_replace(' ', '%20', $gif_phrase);
 		$tw_sharing_hashtags = str_replace('#', '', $gif_hashtags);
-		$post_permalink = 'https://www.startupacademy.org/';
+		$post_permalink = get_permalink();
 
 		$fb_link = 'href="http://www.facebook.com/sharer.php?s=100&p[url]='.$post_permalink.'&p[summary]='.$tw_sharing_phrase.'" target="_blank"';
 		// $fb_link = 'href="http://www.facebook.com/sharer.php?u=' . $post_permalink . '" target="_blank"';
 
-		$tw_link = 'href="https://twitter.com/intent/tweet?url=' . $post_permalink . '%2F&text='. $tw_sharing_phrase .':%20&via=startupacademyy&hashtags='. $tw_sharing_hashtags .'" target="_blank"';
+		$tw_link = 'href="https://twitter.com/intent/tweet?url=' . $post_permalink . '&text='. $tw_sharing_phrase .'&via=startupacademyy&hashtags='. $tw_sharing_hashtags .'" target="_blank"';
 		// $tw_link = 'href="https://twitter.com/intent/tweet?url=' . $post_permalink . '" target="_blank"';
 
 		?>
